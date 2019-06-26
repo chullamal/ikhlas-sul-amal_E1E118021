@@ -1,0 +1,111 @@
+<?php 
+
+//koneksi ke database
+$koneksi = mysqli_connect("localhost","root","","mahasiswa");
+
+$result = mysqli_query ($koneksi,"SELECT*FROM mahasiswa")
+ ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>halaman admin</title>
+</head>
+<body>
+	<h1>Biodata mahasiswa</h1>
+	<a href="tambah.php" target="_blank">tambah data</a>
+	<br><br>
+
+	<table border="1" cellpadding="8" cellspacing="0">
+		<tr>
+			<td>nim</td>
+			<td>action</td>
+			<td>alamat</td>
+			<td>jurusan</td>
+			<td>nama</td>
+		</tr>
+
+		<?php while($row=mysqli_fetch_assoc($result)):?>
+		<tr>
+			<td><?php echo $row["nim"]; ?></td>
+			<td>
+				<a href="">edit</a>
+				<a href="">delete</a>
+			</td>
+			<td><?php echo $row["alamat"]; ?></td>
+			<td><?php echo $row["jurusan"]; ?></td>
+			<td><?php echo $row["nama"]; ?></td>
+		</tr>
+	<?php endwhile; ?>
+
+		
+	</table>
+
+</body>
+</html>
+
+
+
+php................................................................php
+
+<?php
+
+//koneksi ke dbms
+$koneksi = mysqli_connect("localhost","root","","mahasiswa")
+// cek dulu apakah tombol submit sudah di tekan atau belum
+
+if (isset($_POST["submit"])){
+
+	$nim=$_POST['nim'];
+	$nama=$_POST['nama'];
+	$alamat=$_POST['alamat'];
+	$jurusan=$_POST['jurusan'];
+
+
+	// query insert data
+
+	$query= "INSERT INTO mahasiswa 
+			VALUES('$nim','$nama','$alamat',
+			'$jurusan')"
+
+			mysqli_query($koneksi,$query);
+}
+
+  ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>tambah data</title>
+</head>
+<body>
+	<h1>tambah data mahasiswa</h1>
+	<form action="" method="post">
+		<ul>
+			<li>
+				<label for="nim">nim :</label>
+				<input type="text" name="nim" id="nim">
+			</li>
+			<br>
+			<li>
+				<label for="alamat">alamat :</label>
+				<input type="text" name="alamat" id="alamat">
+			</li>
+			<br>
+			<li>
+				<label for="jurusan">jurusan :</label>
+				<input type="text" name="jurusan" id="jurusan">
+			</li>
+			<br>
+			<li>
+				<label for="nama">nama :</label>
+				<input type="text" name="nama" id="nama">
+			</li>
+			<button type="submit " name="submit">kirim data</button>
+		</ul>
+		
+	</form>
+
+</body>
+</html>
